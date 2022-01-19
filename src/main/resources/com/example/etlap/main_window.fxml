@@ -4,15 +4,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="530.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="com.example.etlap.HelloController">
+<VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="530.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.etlap.HelloController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox>
          <children>
-            <Button mnemonicParsing="false" text="Új étel felvétele" />
-            <Button mnemonicParsing="false" text="Törlés" />
+            <Button mnemonicParsing="false" prefWidth="100.0" text="Új étel felvétele">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin></Button>
+            <Button mnemonicParsing="false" prefWidth="100.0" text="Törlés">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin></Button>
          </children>
       </HBox>
       <Accordion>
@@ -40,5 +46,6 @@
             <TableColumn prefWidth="75.0" text="Ár (Ft)" />
         </columns>
       </TableView>
+      <TextField prefHeight="100.0" />
    </children>
 </VBox>
