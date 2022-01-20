@@ -39,13 +39,13 @@
           </TitledPane>
         </panes>
       </Accordion>
-      <TableView prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="etelTable" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Név" />
-          <TableColumn prefWidth="75.0" text="Kategória" />
-            <TableColumn prefWidth="75.0" text="Ár (Ft)" />
+          <TableColumn fx:id="colNev" prefWidth="75.0" text="Név" />
+          <TableColumn fx:id="colKategoria" prefWidth="75.0" text="Kategória" />
+            <TableColumn fx:id="colAr" prefWidth="75.0" text="Ár (Ft)" />
         </columns>
       </TableView>
-      <TextField prefHeight="100.0" />
+      <TextField fx:id="tfKivalasztott" prefHeight="100.0" />
    </children>
 </VBox>
