@@ -11,7 +11,7 @@
    <children>
       <HBox>
          <children>
-            <Button mnemonicParsing="false" prefWidth="100.0" text="Új étel felvétele">
+            <Button mnemonicParsing="false" onAction="#felvetelButtonClick" prefWidth="100.0" text="Új étel felvétele">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin></Button>
