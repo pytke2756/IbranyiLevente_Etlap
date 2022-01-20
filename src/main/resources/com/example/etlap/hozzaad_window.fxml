@@ -4,7 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER_RIGHT" maxHeight="330.0" maxWidth="370.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER_RIGHT" maxHeight="330.0" maxWidth="370.0" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="270.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.etlap.HozzaadWindowController">
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
          <children>
