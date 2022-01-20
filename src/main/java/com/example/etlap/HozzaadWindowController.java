@@ -1,4 +1,4 @@
 package com.example.etlap;
 
-public class HozzaadWindowController {
+public class HozzaadWindowController extends Controller{
 }
