@@ -1,13 +1,15 @@
 package com.example.etlap;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MainWindowController {
+public class MainWindowController extends Controller{
     @FXML
     private TableView<Etel> etelTable;
     @FXML
@@ -62,5 +64,14 @@ public class MainWindowController {
     }
 
 
-
+    @FXML
+    public void felvetelButtonClick(ActionEvent actionEvent) {
+        try {
+            Controller ujFelvetel = ujWindow("hozzaad_window.fxml", "Hozzáadás", 370, 270);
+            ujFelvetel.getStage().setOnCloseRequest(windowEvent -> feltolt());
+            ujFelvetel.getStage().show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
