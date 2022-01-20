@@ -1,8 +1,7 @@
 package com.example.etlap;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.SQLException;
@@ -17,6 +16,8 @@ public class MainWindowController {
     private TableColumn<Etel, Integer> colAr;
     @FXML
     private TableColumn<Etel, String> colKategoria;
+    @FXML
+    private TextField tfKivalasztott;
 
     private EtlapDb db;
 
@@ -33,6 +34,16 @@ public class MainWindowController {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+        etelTable.setRowFactory(etelTableView -> {
+            TableRow<Etel> row = new TableRow<>();
+            row.setOnMouseClicked(mouseEvent -> {
+                Etel e = etelTable.getSelectionModel().getSelectedItem();
+                String tfBe = e.getNev() + " - " + e.getKategoria() + " - " + e.getLeiras() + " - " + e.getAr() + " Ft";
+                tfKivalasztott.setText(tfBe);
+            });
+            return row;
+        });
     }
     
     
@@ -47,7 +58,9 @@ public class MainWindowController {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
     }
+
 
 
 }
