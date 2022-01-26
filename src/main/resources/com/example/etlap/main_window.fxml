@@ -15,7 +15,7 @@
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" prefWidth="100.0" text="Törlés">
+            <Button mnemonicParsing="false" onAction="#torlesButtonCLick" prefWidth="100.0" text="Törlés">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin></Button>
