@@ -74,4 +74,18 @@ public class MainWindowController extends Controller{
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void torlesButtonCLick(ActionEvent actionEvent) throws SQLException {
+        Etel e = etelTable.getSelectionModel().getSelectedItem();
+        if (e != null){
+            if (confirm("Biztos, hogy törölni szeretné ezt az ételt?")){
+                db.etelTorlese(e.getId());
+                feltolt();
+                return;
+            }
+            return;
+        }
+        alert("Nincs kiválasztva étel!");
+    }
 }
