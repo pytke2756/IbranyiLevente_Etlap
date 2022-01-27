@@ -22,7 +22,10 @@ public class MainWindowController extends Controller{
     private TextField tfKivalasztott;
 
     private EtlapDb db;
-
+    @FXML
+    private Spinner<Integer> forintSpinner;
+    @FXML
+    private Spinner<Integer> szazalekSpinner;
 
 
     public void initialize(){
@@ -87,5 +90,47 @@ public class MainWindowController extends Controller{
             return;
         }
         alert("Nincs kiválasztva étel!");
+    }
+
+    @FXML
+    public void szazelekEmelesButtonClick(ActionEvent actionEvent) throws SQLException {
+        Etel e = etelTable.getSelectionModel().getSelectedItem();
+        if (e != null){
+            String confirmUzenet = "Biztos hogy módosítja a(z) " + e.getNev() + " árát?";
+            if (confirm(confirmUzenet)){
+                int ertekValtozas = szazalekErtekValtozas(e.getAr());
+                try{
+                    db.etelModositasa(e, ertekValtozas);
+                    feltolt();
+                    System.out.println("Sikeres módosítás");
+                }catch (Exception ex){
+                    System.out.println(ex);
+                }
+            }
+        }
+        else{
+            if (confirm("Biztos hogy módosítja az összes ételt?")){
+                int meret = etelTable.getItems().size();
+                for (int i = 0; i < meret; i++) {
+                    Etel obj = etelTable.getItems().get(i);
+                    int ertekValtozas = szazalekErtekValtozas(obj.getAr());
+                    try {
+                        db.etelModositasa(obj, ertekValtozas);
+                        feltolt();
+                        System.out.println("Sikeres módosítás");
+                    }catch (Exception ex){
+                        System.out.println(ex);
+                    }
+                }
+            }
+        }
+    }
+
+    private int szazalekErtekValtozas(int etelJelenlegiAra){
+        return (int)((szazalekSpinner.getValue() / 100.0) * etelJelenlegiAra) + etelJelenlegiAra;
+    }
+
+    @FXML
+    public void forintEmelesButtonClick(ActionEvent actionEvent) {
     }
 }
