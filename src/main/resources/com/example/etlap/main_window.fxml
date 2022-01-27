@@ -27,12 +27,16 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Spinner layoutX="14.0" layoutY="22.0" />
-                        <Spinner layoutX="14.0" layoutY="58.0" />
+                         <Spinner fx:id="szazalekSpinner"  layoutX="14.0" layoutY="22.0">
+                             <valueFactory>
+                                 <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="5" initialValue="5" max="50" min="5"/>
+                             </valueFactory>
+                         </Spinner>
+                        <Spinner fx:id="forintSpinner" amountToStepBy="50" initialValue="50" layoutX="14.0" layoutY="58.0" max="3000" min="50" />
                         <Label layoutX="171.0" layoutY="26.0" text="\%" />
                         <Label layoutX="171.0" layoutY="62.0" text="Ft" />
-                        <Button layoutX="244.0" layoutY="22.0" mnemonicParsing="false" text="Emelés" />
-                        <Button layoutX="244.0" layoutY="58.0" mnemonicParsing="false" text="Emelés" />
+                        <Button layoutX="244.0" layoutY="22.0" mnemonicParsing="false" onAction="#szazelekEmelesButtonClick" text="Emelés" />
+                        <Button layoutX="244.0" layoutY="58.0" mnemonicParsing="false" onAction="#forintEmelesButtonClick" text="Emelés" />
                      </children>
                   </AnchorPane>
             </content>
