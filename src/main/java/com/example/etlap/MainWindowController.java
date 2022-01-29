@@ -167,4 +167,15 @@ public class MainWindowController extends Controller{
     private int forintErtekValtozas(int etelJelenlegiAra) {
         return forintSpinner.getValue() + etelJelenlegiAra;
     }
+
+    @FXML
+    public void kategoriakButtonCLick(ActionEvent actionEvent) {
+        try{
+            Controller kategoriak = ujWindow("kategoria_window.fxml", "Kategóriák", 530, 600);
+            kategoriak.getStage().setOnCloseRequest(windowEvent -> feltolt());
+            kategoriak.getStage().show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
