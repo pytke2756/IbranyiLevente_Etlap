@@ -79,4 +79,11 @@ public class EtlapDb {
         }
         return osszesKategoria;
     }
+
+    public int kategoriaAdd(String ujKategoria) throws SQLException {
+        String sql = "INSERT INTO kategoriak(nev) VALUES(?)";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, ujKategoria);
+        return stmt.executeUpdate();
+    }
 }
