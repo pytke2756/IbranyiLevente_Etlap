@@ -63,4 +63,20 @@ public class EtlapDb {
         int erintettSorok = stmt.executeUpdate();
         return erintettSorok == 1;
     }
+
+    public List<Kategoria> getKategoriak() throws SQLException {
+        List<Kategoria> osszesKategoria = new ArrayList<>();
+        String sqlKat = "SELECT * FROM kategoriak";
+        Statement stmt = connection.createStatement();
+        ResultSet result = stmt.executeQuery(sqlKat);
+
+        while (result.next()){
+            int id = result.getInt("id");
+            String nev = result.getString("nev");
+            Kategoria obj = new Kategoria(id, nev);
+            osszesKategoria.add(obj);
+            System.out.println(obj);
+        }
+        return osszesKategoria;
+    }
 }
