@@ -132,5 +132,39 @@ public class MainWindowController extends Controller{
 
     @FXML
     public void forintEmelesButtonClick(ActionEvent actionEvent) {
+        Etel e = etelTable.getSelectionModel().getSelectedItem();
+        if (e != null){
+            String confirmUzenet = "Biztos hogy módosítja a(z) " + e.getNev() + " árát?";
+            if (confirm(confirmUzenet)){
+                int ertekValtozas = forintErtekValtozas(e.getAr());
+                try{
+                    db.etelModositasa(e, ertekValtozas);
+                    feltolt();
+                    System.out.println("Sikeres módosítás");
+                }catch (Exception ex){
+                    System.out.println(ex);
+                }
+            }
+        }
+        else{
+            if (confirm("Biztos hogy módosítja az összes ételt?")){
+                int meret = etelTable.getItems().size();
+                for (int i = 0; i < meret; i++) {
+                    Etel obj = etelTable.getItems().get(i);
+                    int ertekValtozas = forintErtekValtozas(obj.getAr());
+                    try {
+                        db.etelModositasa(obj, ertekValtozas);
+                        feltolt();
+                        System.out.println("Sikeres módosítás");
+                    }catch (Exception ex){
+                        System.out.println(ex);
+                    }
+                }
+            }
+        }
+    }
+
+    private int forintErtekValtozas(int etelJelenlegiAra) {
+        return forintSpinner.getValue() + etelJelenlegiAra;
     }
 }
