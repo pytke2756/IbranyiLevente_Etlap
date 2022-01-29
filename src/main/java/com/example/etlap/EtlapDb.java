@@ -14,15 +14,16 @@ public class EtlapDb {
     public List<Etel> getEtelek() throws SQLException {
         List<Etel> etelek = new ArrayList<>();
         Statement stmt = connection.createStatement();
-        String sql = "SELECT * FROM etlap;";
+        String sql = "SELECT * FROM `etlap`\n" +
+                "INNER JOIN kategoriak ON etlap.kategoria_id = kategoriak.id";
         ResultSet result = stmt.executeQuery(sql);
         while (result.next()) {
             int id = result.getInt("id");
             String nev = result.getString("nev");
             String leiras = result.getString("leiras");
             int ar = result.getInt("ar");
-            String kategoria = result.getString("kategoria");
-            Etel obj = new Etel(id,nev,leiras,ar,kategoria);
+            String kategoria = result.getString("kategoriak.nev");
+            Etel obj = new Etel(id,nev,leiras,ar, kategoria);
             etelek.add(obj);
         }
         return etelek;
