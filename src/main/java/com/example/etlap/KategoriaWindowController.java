@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -24,6 +25,20 @@ public class KategoriaWindowController extends Controller{
 
     @FXML
     public void kategoriaHozzaadasButtonClick(ActionEvent actionEvent) {
+        try {
+            Controller kategoriaHozzaadas = ujWindow("kategoria_hozzad_window.fxml", "Kategória hozzáadás", 250,100);
+            kategoriaHozzaadas.getStage().setOnCloseRequest(windowEvent -> {
+                try {
+                    kategoriakFeltolt();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+            kategoriaHozzaadas.getStage().show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void kategoriakFeltolt() throws SQLException {
