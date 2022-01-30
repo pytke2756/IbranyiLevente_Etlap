@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EtlapDb {
+public class EtlapDb extends Controller{
     Connection connection;
 
     public EtlapDb() throws SQLException {
@@ -92,7 +92,35 @@ public class EtlapDb {
         String sql = "DELETE FROM kategoriak WHERE id = ?";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, id);
-        int erintettSorok = stmt.executeUpdate();
+        int erintettSorok = 0;
+        try {
+            erintettSorok = stmt.executeUpdate();
+        }catch (SQLIntegrityConstraintViolationException ex){
+            alert("Nem tudod törölni a kategóriát!");
+        }
+
         return erintettSorok == 1;
+    }
+
+    public List<Etel> getEtelKategoriaSzerint(int katId) throws SQLException {
+        List<Etel> kategoriaSzerint = new ArrayList<>();
+        String sql ="SELECT * FROM `etlap`\n" +
+                    "INNER JOIN kategoriak ON etlap.kategoria_id = kategoriak.id\n" +
+                    "WHERE kategoriak.id = ?;";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, katId);
+        ResultSet result = stmt.executeQuery();
+        while (result.next()){
+            int id = result.getInt("id");
+            String nev = result.getString("nev");
+            String leiras = result.getString("leiras");
+            int ar = result.getInt("ar");
+            String kategoria = result.getString("kategoriak.nev");
+            int kategoriaId = result.getInt("kategoriak.id");
+
+            Etel obj = new Etel(id, nev, leiras, ar, kategoria, kategoriaId);
+            kategoriaSzerint.add(obj);
+        }
+        return kategoriaSzerint;
     }
 }
