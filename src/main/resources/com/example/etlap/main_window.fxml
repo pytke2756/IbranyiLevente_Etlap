@@ -44,6 +44,11 @@
           </TitledPane>
         </panes>
       </Accordion>
+      <HBox>
+         <children>
+            <ChoiceBox fx:id="szuresKategoriaChoiceBox" prefWidth="150.0" />
+         </children>
+      </HBox>
       <TableView fx:id="etelTable" prefHeight="200.0" prefWidth="200.0">
         <columns>
           <TableColumn fx:id="colNev" prefWidth="75.0" text="Név" />
