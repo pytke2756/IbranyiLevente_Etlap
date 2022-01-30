@@ -69,7 +69,6 @@ public class MainWindowController extends Controller{
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 int rendezesKatId = kategoriak.get(t1.intValue()).getId();
-                System.out.println(rendezesKatId);
                 if (rendezesKatId == 0){
                     feltolt();
                 }else{

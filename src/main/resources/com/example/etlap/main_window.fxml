@@ -19,7 +19,7 @@
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin></Button>
-            <Button layoutX="120.0" layoutY="10.0" mnemonicParsing="false" onAction="#kategoriakButtonCLick" prefWidth="100.0" text="Kategórák" />
+            <Button layoutX="120.0" layoutY="10.0" mnemonicParsing="false" onAction="#kategoriakButtonCLick" prefWidth="100.0" text="Kategóriák" />
          </children>
       </HBox>
       <Accordion>

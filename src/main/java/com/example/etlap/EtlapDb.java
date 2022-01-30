@@ -76,7 +76,6 @@ public class EtlapDb extends Controller{
             String nev = result.getString("nev");
             Kategoria obj = new Kategoria(id, nev);
             osszesKategoria.add(obj);
-            System.out.println(obj);
         }
         return osszesKategoria;
     }
