@@ -1,5 +1,9 @@
 package com.example.etlap;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -26,9 +30,13 @@ public class MainWindowController extends Controller{
     private Spinner<Integer> forintSpinner;
     @FXML
     private Spinner<Integer> szazalekSpinner;
+    @FXML
+    private ChoiceBox<Kategoria> szuresKategoriaChoiceBox;
+
+    private List<Kategoria> kategoriak;
 
 
-    public void initialize(){
+    public void initialize() throws SQLException {
         colNev.setCellValueFactory(new PropertyValueFactory<>("nev"));
         colAr.setCellValueFactory(new PropertyValueFactory<>("ar"));
         colKategoria.setCellValueFactory(new PropertyValueFactory<>("kategoria"));
@@ -40,6 +48,12 @@ public class MainWindowController extends Controller{
             throwables.printStackTrace();
         }
 
+        kategoriak = db.getKategoriak();
+        kategoriak.add(0, new Kategoria(0, "Nincs rendezés"));
+        ObservableList<Kategoria> kategoriaObservableList = FXCollections.observableArrayList(kategoriak);
+        szuresKategoriaChoiceBox.setItems(kategoriaObservableList);
+        szuresKategoriaChoiceBox.getSelectionModel().selectFirst();
+
         etelTable.setRowFactory(etelTableView -> {
             TableRow<Etel> row = new TableRow<>();
             row.setOnMouseClicked(mouseEvent -> {
@@ -48,6 +62,29 @@ public class MainWindowController extends Controller{
                 tfKivalasztott.setText(tfBe);
             });
             return row;
+        });
+
+        szuresKategoriaChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                int rendezesKatId = kategoriak.get(t1.intValue()).getId();
+                System.out.println(rendezesKatId);
+                if (rendezesKatId == 0){
+                    feltolt();
+                }else{
+                    etelTable.getItems().clear();
+                    try {
+                        List<Etel> rendezett = db.getEtelKategoriaSzerint(rendezesKatId);
+                        for (Etel item :
+                                rendezett) {
+                            etelTable.getItems().add(item);
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         });
     }
     
