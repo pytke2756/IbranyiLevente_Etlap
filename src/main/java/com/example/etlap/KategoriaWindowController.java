@@ -47,4 +47,22 @@ public class KategoriaWindowController extends Controller{
         ObservableList<Kategoria> kategoriakObservedList = FXCollections.observableArrayList(kategoriak);
         kategoriakListView.setItems(kategoriakObservedList);
     }
+
+    @FXML
+    public void kategoriaTorlesButtonClick(ActionEvent actionEvent){
+        Kategoria obj = kategoriakListView.getSelectionModel().getSelectedItem();
+        if (obj != null){
+            String uzenet = String.format("Biztos törölni akarja a %s nevű kategóriát?", obj.getNev());
+            if (confirm(uzenet)){
+                try {
+                    db.kategoriaTorles(obj.getId());
+                    kategoriakFeltolt();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        }else{
+            alert("Nincs kiválasztva kategória!");
+        }
+    }
 }
