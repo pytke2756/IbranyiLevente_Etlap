@@ -42,13 +42,7 @@
                </HBox.margin>
             </Label>
             <ChoiceBox fx:id="cbKategoria" prefWidth="250.0">
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="előétel" />
-                     <String fx:value="főétel" />
-                     <String fx:value="desszert" />
-                  </FXCollections>
-               </items>
+
             </ChoiceBox>
          </children>
          <VBox.margin>
