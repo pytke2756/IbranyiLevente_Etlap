@@ -1,5 +1,7 @@
 package com.example.etlap;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -8,23 +10,28 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class HozzaadWindowController extends Controller{
 
     @FXML
     private TextArea tfLeiras;
     @FXML
-    private ChoiceBox<String> cbKategoria;
+    private ChoiceBox<Kategoria> cbKategoria;
     @FXML
     private Spinner<Integer> spAr;
     @FXML
     private TextField tfNev;
 
     private EtlapDb db;
+    private List<Kategoria> kategoriak;
 
     public void initialize() throws SQLException {
-        cbKategoria.getSelectionModel().selectFirst();
         db = new EtlapDb();
+        kategoriak = db.getKategoriak();
+        ObservableList<Kategoria> kategoriaObservableList = FXCollections.observableArrayList(kategoriak);
+        cbKategoria.setItems(kategoriaObservableList);
+        cbKategoria.getSelectionModel().selectFirst();
     }
 
     @FXML
@@ -40,8 +47,8 @@ public class HozzaadWindowController extends Controller{
             alert("A leírás nem lehet üres!");
             return;
         }
-        String kategoria = cbKategoria.getSelectionModel().getSelectedItem();
-        if (kategoria == null){
+        Kategoria kat = cbKategoria.getSelectionModel().getSelectedItem();
+        if (kat == null){
             alert("Kötelező kiválasztani kategóriát!");
             return;
         }
@@ -51,7 +58,7 @@ public class HozzaadWindowController extends Controller{
             return;
         }
         try {
-            int siker = db.etelAdd(nev, leiras, ar, kategoria);
+            int siker = db.etelAdd(nev, leiras, ar, kat.getId());
             if (siker == 1){
                 alert("Étel hozzáadása sikeres!");
                 tfLeiras.setText("");
